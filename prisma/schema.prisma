@@ -1,0 +1,139 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  relationMode ="prisma"
+}
+
+model Vehiculo {
+  id            String  @id @default(uuid())
+  descripcion   String
+  noChasis      String
+  noMotor       String
+  noPlaca       String
+  tpVehiculoId  String
+  tpVehiculo    TipoVehiculo @relation(fields: [tpVehiculoId], references: [id])
+  marcaId       String
+  marca         Marca @relation(fields: [marcaId], references: [id])
+  modeloId      String
+  modelo        Modelo @relation(fields: [modeloId], references: [id])
+  tpCombustibleId String
+  tpCombustible TipoCombustible @relation(fields: [tpCombustibleId], references: [id])
+  estado        Boolean
+  Inspecciones  Inspeccion[]
+  RentaDevoluciones RentaDevolucion[]
+
+  @@index([tpVehiculoId])
+  @@index([marcaId])
+  @@index([modeloId])
+  @@index([tpCombustibleId])
+}
+
+model TipoVehiculo {
+  id          String  @id @default(uuid())
+  descripcion String
+  estado      Boolean
+  Vehiculos   Vehiculo[]
+}
+
+model Marca {
+  id          String  @id @default(uuid())
+  descripcion String
+  estado      Boolean
+  Modelos     Modelo[]
+  Vehiculos   Vehiculo[]
+}
+
+model Modelo {
+  id          String  @id @default(uuid())
+  idMarca     String
+  marca       Marca @relation(fields: [idMarca], references: [id])
+  descripcion String
+  estado      Boolean
+  Vehiculos   Vehiculo[]
+
+  @@index([idMarca])
+}
+
+model TipoCombustible {
+  id          String  @id @default(uuid())
+  descripcion String
+  estado      Boolean
+  Vehiculos   Vehiculo[]
+}
+
+model Cliente {
+  id           String  @id @default(uuid())
+  nombre       String
+  cedula       String
+  noTarjetaCr  String
+  limiteCredito Float
+  tipoPersona  String
+  estado       Boolean
+  Inspecciones Inspeccion[]
+  RentaDevoluciones RentaDevolucion[]
+}
+
+model Empleado {
+  id           String  @id @default(uuid())
+  nombre       String
+  cedula       String
+  tandaLabor   String
+  porcientoComision Float
+  fechaIngreso DateTime
+  estado       Boolean
+  Inspecciones Inspeccion[]
+  RentaDevoluciones RentaDevolucion[]
+}
+
+model Inspeccion {
+  id             String  @id @default(uuid())
+  vehiculoId     String
+  vehiculo       Vehiculo @relation(fields: [vehiculoId], references: [id])
+  clienteId      String
+  cliente        Cliente @relation(fields: [clienteId], references: [id])
+  tieneRalladuras Boolean
+  cantidadCombustible String
+  tieneGomaRespuesta Boolean
+  tieneGato      Boolean
+  tieneRoturasCristal Boolean
+  estadoGomas    String
+  fecha          DateTime
+  empleadoId     String
+  empleado       Empleado @relation(fields: [empleadoId], references: [id])
+  estado         Boolean
+
+  @@index([vehiculoId])
+  @@index([clienteId])
+  @@index([empleadoId])
+}
+
+model RentaDevolucion {
+  id             String  @id @default(uuid())
+  empleadoId     String
+  empleado       Empleado @relation(fields: [empleadoId], references: [id])
+  vehiculoId     String
+  vehiculo       Vehiculo @relation(fields: [vehiculoId], references: [id], onDelete: Cascade)
+  clienteId      String
+  cliente        Cliente @relation(fields: [clienteId], references: [id])
+  fechaRenta     DateTime
+  fechaDevolucion DateTime
+  montoPorDia    Float
+  cantidadDias   Int
+  comentario     String
+  estado         Boolean
+
+  @@index([empleadoId])
+  @@index([vehiculoId])
+  @@index([clienteId])
+}
+
