@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import NextTopLoader from 'nextjs-toploader';
+import { Toaster } from "@/components/ui/toaster"
+
 
 import {
   ClerkProvider,
@@ -36,6 +38,7 @@ export default function RootLayout({
       >
          <NextTopLoader color="#000"/>
         {children}
+        <Toaster />
 
       </body>
     </html>
