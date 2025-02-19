@@ -1,6 +1,6 @@
 // import Image from "next/image";
 
-import { NavarDashboard } from "../(dashboard)/dashboard/components/NavarDashboard";
+import { Navbar } from "@/components/Shared/Navbar";
 import { DriveToday } from "./components/DriveToday";
 import { Features } from "./components/Features";
 import {FirtsBlock} from "./components/FirtsBlock/FirtsBlock";
@@ -104,7 +104,7 @@ export default function Home() {
     //   </footer>
     // </div>
     <div>
-      <NavarDashboard/>
+      <Navbar/>
       <FirtsBlock/>
       <SliderBrands/>
       <Features/>
