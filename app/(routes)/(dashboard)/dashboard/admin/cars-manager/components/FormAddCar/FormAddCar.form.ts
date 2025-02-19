@@ -8,6 +8,7 @@ export const formSchema = z.object({
     tpVehiculoId: z.string().min(1, "El tipo de vehículo es requerido"),  
     marcaId: z.string().min(1, "La marca es requerida"),  
     modeloId: z.string().min(1, "El modelo es requerido"),  
-    tpCombustibleId: z.string().min(1, "El tipo de combustible es requerido"),  
+    tpCombustibleId: z.string().min(1, "El tipo de combustible es requerido"), 
+    photo: z.string().min(2).max(100), 
     estado: z.boolean(),
   });

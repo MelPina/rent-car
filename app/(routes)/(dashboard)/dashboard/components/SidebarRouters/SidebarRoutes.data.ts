@@ -2,12 +2,12 @@ import { BookUserIcon, Calendar, Car, CarTaxiFrontIcon, ComponentIcon, FileScanI
 export const dataGeneralSidebar = [  
 {  
   icon: Car,  
-  label: "Cars",  
+  label: "Vehículos",  
   href: "/dashboard",  
 },  
 {  
   icon: Calendar,  
-  label: "Cars Reserves",  
+  label: "Vehículos Reservados",  
   href: "/reserves",  
 },  
 // {  

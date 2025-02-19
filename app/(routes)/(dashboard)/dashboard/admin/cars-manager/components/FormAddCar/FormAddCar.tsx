@@ -20,10 +20,13 @@ import { FormAddCarProps } from "./FormAddCar.types";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast"
+import { useState } from "react";
+import { UploadButton } from "@/utils/uploadthing";
 
 export function FormAddCar(props: FormAddCarProps) {
   const { setOpenDialog } = props;
   const router = useRouter();
+  const [photoUploaded, setPhotoUploaded] = useState(false)
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -35,12 +38,13 @@ export function FormAddCar(props: FormAddCarProps) {
       marcaId: "",
       modeloId: "",
       tpCombustibleId: "",
+      photo: "",
       estado: true,
     },
   });
   const { toast } = useToast()
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) =>{
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setOpenDialog(false);
     try {
       await axios.post('/api/car', values);
@@ -55,7 +59,7 @@ export function FormAddCar(props: FormAddCarProps) {
       });
     }
   }
-  
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -109,6 +113,35 @@ export function FormAddCar(props: FormAddCarProps) {
               <FormLabel>No. Placa</FormLabel>
               <FormControl>
                 <Input placeholder="Ej. ABC-1234" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="photo"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Imagen</FormLabel>
+              <FormControl>
+                {photoUploaded ? (
+                  <p className="text-sm">Image cargada correctamente!</p>
+                ) : (
+                  <UploadButton
+                    className="rounded-lg bg-slate-600/20 text-slate-800 outline-dotted outline-3"
+                    {...field}
+                    endpoint="photo"
+                    onClientUploadComplete={(res) => {
+                      form.setValue("photo", res?.[0].url);
+                      setPhotoUploaded(true);
+                    }}
+                    onUploadError={(error: Error) => {
+                      console.log(error);
+                    }}
+                  />
+                )}
               </FormControl>
               <FormMessage />
             </FormItem>
