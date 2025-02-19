@@ -5,13 +5,35 @@ Dialog,
 DialogContent,
 DialogDescription,
 DialogHeader,
-// DialogTitle,
+DialogTitle,
 DialogTrigger,
 } from "@/components/ui/dialog";
 import { PlusCircle } from "lucide-react";
 import { useState } from "react";
 import { FormAddCar } from "../FormAddCar";
 
+// export function ButtonAddCar() {
+//   const [openDialog, setOpenDialog] = useState(false);
+
+//   return (
+//     <Dialog onOpenChange={setOpenDialog}>
+//       <DialogTrigger asChild>
+//         <Button variant="outline" onClick={() => setOpenDialog(true)}>
+//           Add new car
+//           <PlusCircle className="ml-2" />
+//         </Button>
+//       </DialogTrigger>
+//       <DialogContent>
+//         <DialogTitle>Add new car</DialogTitle>
+//         <DialogHeader>
+//           <DialogDescription>
+//             <FormAddCar />
+//           </DialogDescription>
+//         </DialogHeader>
+//       </DialogContent>
+//     </Dialog>
+//   );
+// }
 
 export function ButtonAddCar() {
   const [openDialog, setOpenDialog] = useState(false);
@@ -24,9 +46,10 @@ export function ButtonAddCar() {
         </Button>
       </DialogTrigger>
       <DialogContent>
+        <DialogTitle>Add new car</DialogTitle>
         <DialogHeader>
           <DialogDescription>
-            <FormAddCar />
+            <FormAddCar setOpenDialog = {setOpenDialog}/>
           </DialogDescription>
         </DialogHeader>
       </DialogContent>
