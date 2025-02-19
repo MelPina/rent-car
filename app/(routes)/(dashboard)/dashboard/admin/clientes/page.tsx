@@ -1,4 +1,8 @@
+import { auth } from "@clerk/nextjs/server";
 
+import { isAdministrator } from "@/lib/isAdministrator";
+import { redirect } from "next/navigation";
+import { db } from "@/lib/db";
 
 export default async function ClientsManagerPage() {
   // const {userId}= auth();
