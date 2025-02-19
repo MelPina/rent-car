@@ -14,7 +14,7 @@ export function Navbar() {
                     <span className="text-xl font-bold">Garabatos Rent-Cars</span>
                 </Link>
                 <div className="flex items-center justify-center gap-x-7">
-                    <Link href="/cars">List Cars</Link>
+                    {/* <Link href="/cars">List Cars</Link> */}
                     <Link href="/dashboard">Dashboard</Link>
 
                     {userId ? (

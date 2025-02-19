@@ -5,9 +5,12 @@ export default function PageDashboard() {
   return (
     <div>
     <div className="flex justify-between">
-    <h2 className="text-2xl font-bold">List of cars</h2>
+    <h2 className="text-2xl font-bold">Listado de Vehículos</h2>
     </div>
-    <p>Listado de coches</p>
+    <p>
+      <br></br>
+    </p>
+    {/* <p>Listado de Vehículos</p> */}
     <section>
       <div className="flex flex-wrap -m-4">
         {[1, 2, 3, 4].map((car) => (
