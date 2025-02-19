@@ -1,6 +1,7 @@
 // import Image from "next/image";
 
 import { NavarDashboard } from "../(dashboard)/dashboard/components/NavarDashboard";
+import { Features } from "./components/Features";
 import {FirtsBlock} from "./components/FirtsBlock/FirtsBlock";
 import SliderBrands from "./components/SliderBrands/SliderBrands";
 
@@ -104,7 +105,8 @@ export default function Home() {
     <div>
       <NavarDashboard/>
       <FirtsBlock/>
-      {/* <SliderBrands/> */}
+      <SliderBrands/>
+      <Features/>
     </div>
   );
 }

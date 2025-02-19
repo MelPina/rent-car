@@ -3,6 +3,9 @@ export const dataBrands = [
         url: "bmw.png",
     },
     {
+        url: "mazda.png",
+    },
+    {
         url: "chervolet.png",
     },
     {
@@ -16,5 +19,8 @@ export const dataBrands = [
     },
     {
         url: "nissan.png",
+    },
+    {
+        url: "jeep.png",
     },
 ]

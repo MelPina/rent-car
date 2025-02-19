@@ -19,7 +19,7 @@ export default function SliderBrands() {
                 className="w-full max-w-6xl mx-auto"
                 plugins={[
                     Autoplay({
-                        delay: 5500,
+                        delay: 2500,
                     }),
                 ]}
             >
@@ -35,7 +35,7 @@ export default function SliderBrands() {
                                 alt="Brand"
                                 width={90}
                                 height={90}
-                                className="object-contain aspec-[3/2]"
+                                className="object-contain aspect-[3/2]"
                             />
                         </CarouselItem>
                     ))}
