@@ -1,5 +1,9 @@
 // import Image from "next/image";
 
+import { NavarDashboard } from "../(dashboard)/dashboard/components/NavarDashboard";
+import {FirtsBlock} from "./components/FirtsBlock/FirtsBlock";
+import SliderBrands from "./components/SliderBrands/SliderBrands";
+
 export default function Home() {
   return (
     // <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
@@ -97,8 +101,10 @@ export default function Home() {
     //     </a>
     //   </footer>
     // </div>
-    <div className="flex items-center justify-center h-screen">
-      <h1>Home</h1>
+    <div>
+      <NavarDashboard/>
+      <FirtsBlock/>
+      {/* <SliderBrands/> */}
     </div>
   );
 }
