@@ -20,7 +20,7 @@ export default async function pageCars() {
                 <HeaderCars />
                
                 <div>
-                    <FilterAndListCars vehiculos={vehiculos} />
+                    {/* <FilterAndListCars vehiculos={vehiculos} /> */}
                 </div>
             </div>
         </div>

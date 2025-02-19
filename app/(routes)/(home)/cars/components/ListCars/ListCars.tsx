@@ -20,7 +20,7 @@ export function ListCars(props: ListCarsProps) {
                 <p>No se han encontrado vehículos con estos filtros</p>
             )}
             <div className="grid grid-cols-2 gap-6 lg:grid-cols-4">
-                {/* {vehiculos.map((car: Vehiculo) => {
+                {vehiculos.map((car: Vehiculo) => {
                     const { descripcion,
                         noChasis,
                         noMotor,
@@ -32,7 +32,7 @@ export function ListCars(props: ListCarsProps) {
                             <Image src={photo} alt="" />
                         </div>
                     )
-                })} */}
+                })}
             </div>
         </>
     )

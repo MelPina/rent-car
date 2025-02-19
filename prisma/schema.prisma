@@ -16,6 +16,7 @@ datasource db {
 
 model Vehiculo {
   id            String  @id @default(uuid())
+  userId        String
   descripcion   String
   noChasis      String
   noMotor       String
@@ -29,6 +30,7 @@ model Vehiculo {
   tpCombustibleId String
   tpCombustible TipoCombustible @relation(fields: [tpCombustibleId], references: [id])
   estado        Boolean
+  photo         String
   Inspecciones  Inspeccion[]
   RentaDevoluciones RentaDevolucion[]
 
@@ -111,15 +113,19 @@ model Inspeccion {
   empleadoId     String
   empleado       Empleado @relation(fields: [empleadoId], references: [id])
   estado         Boolean
+  userId         String
 
   @@index([vehiculoId])
   @@index([clienteId])
   @@index([empleadoId])
+  @@index([userId])
+
 }
 
 model RentaDevolucion {
   id             String  @id @default(uuid())
   empleadoId     String
+  userId         String
   empleado       Empleado @relation(fields: [empleadoId], references: [id])
   vehiculoId     String
   vehiculo       Vehiculo @relation(fields: [vehiculoId], references: [id], onDelete: Cascade)
@@ -135,5 +141,6 @@ model RentaDevolucion {
   @@index([empleadoId])
   @@index([vehiculoId])
   @@index([clienteId])
+  @@index([userId])
 }
 
