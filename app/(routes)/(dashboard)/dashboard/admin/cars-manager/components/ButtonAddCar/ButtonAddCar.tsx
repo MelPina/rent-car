@@ -12,33 +12,11 @@ import { PlusCircle } from "lucide-react";
 import { useState } from "react";
 import { FormAddCar } from "../FormAddCar";
 
-// export function ButtonAddCar() {
-//   const [openDialog, setOpenDialog] = useState(false);
-
-//   return (
-//     <Dialog onOpenChange={setOpenDialog}>
-//       <DialogTrigger asChild>
-//         <Button variant="outline" onClick={() => setOpenDialog(true)}>
-//           Add new car
-//           <PlusCircle className="ml-2" />
-//         </Button>
-//       </DialogTrigger>
-//       <DialogContent>
-//         <DialogTitle>Add new car</DialogTitle>
-//         <DialogHeader>
-//           <DialogDescription>
-//             <FormAddCar />
-//           </DialogDescription>
-//         </DialogHeader>
-//       </DialogContent>
-//     </Dialog>
-//   );
-// }
-
 export function ButtonAddCar() {
   const [openDialog, setOpenDialog] = useState(false);
+
   return (
-    <Dialog open={openDialog}>
+    <Dialog onOpenChange={setOpenDialog}>
       <DialogTrigger asChild>
         <Button variant="outline" onClick={() => setOpenDialog(true)}>
           Add new car
@@ -49,12 +27,34 @@ export function ButtonAddCar() {
         <DialogTitle>Add new car</DialogTitle>
         <DialogHeader>
           <DialogDescription>
-            <FormAddCar setOpenDialog = {setOpenDialog}/>
+          <FormAddCar setOpenDialog = {setOpenDialog}/>
           </DialogDescription>
         </DialogHeader>
       </DialogContent>
     </Dialog>
   );
 }
+
+// export function ButtonAddCar() {
+//   const [openDialog, setOpenDialog] = useState(false);
+//   return (
+//     <Dialog open={openDialog}>
+//       <DialogTrigger asChild>
+//         <Button variant="outline" onClick={() => setOpenDialog(true)}>
+//           Add new car
+//           <PlusCircle className="ml-2" />
+//         </Button>
+//       </DialogTrigger>
+//       <DialogContent>
+//         <DialogTitle>Add new car</DialogTitle>
+//         <DialogHeader>
+//           <DialogDescription>
+//             <FormAddCar setOpenDialog = {setOpenDialog}/>
+//           </DialogDescription>
+//         </DialogHeader>
+//       </DialogContent>
+//     </Dialog>
+//   );
+// }
 
 

@@ -119,7 +119,7 @@ export function FormAddCar(props: FormAddCarProps) {
           )}
         />
 
-        <FormField
+        {/* <FormField
           control={form.control}
           name="photo"
           render={({ field }) => (
@@ -146,7 +146,7 @@ export function FormAddCar(props: FormAddCarProps) {
               <FormMessage />
             </FormItem>
           )}
-        />
+        /> */}
 
         <Button type="submit" className="w-full mt-5">Registrar Vehículo</Button>
       </form>

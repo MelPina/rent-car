@@ -25,9 +25,9 @@ export default function PageDashboard() {
           />
               <div className="p-6">
           <h1 className="title-font text-lg font-medium text-gray-900 mb-3">Car {car}</h1>
-          <p className="leading-relaxed mb-3">This is the description for car {car}.</p>
+          <p className="leading-relaxed mb-3">Descripción del vehículo {car}.</p>
           <div className="flex items-center flex-wrap ">
-            <button className="text-indigo-500 inline-flex items-center md:mb-2 lg:mb-0">Comprar</button>
+            <button className="text-indigo-500 inline-flex items-center md:mb-2 lg:mb-0">Rentar</button>
           </div>
               </div>
             </div>
