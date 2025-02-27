@@ -9,29 +9,29 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-  relationMode ="prisma"
+  provider     = "postgresql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 model Vehiculo {
-  id            String  @id @default(uuid())
-  userId        String
-  descripcion   String
-  noChasis      String
-  noMotor       String
-  noPlaca       String
-  tpVehiculoId  String
-  tpVehiculo    TipoVehiculo @relation(fields: [tpVehiculoId], references: [id])
-  marcaId       String
-  marca         Marca @relation(fields: [marcaId], references: [id])
-  modeloId      String
-  modelo        Modelo @relation(fields: [modeloId], references: [id])
-  tpCombustibleId String
-  tpCombustible TipoCombustible @relation(fields: [tpCombustibleId], references: [id])
-  estado        Boolean
-  photo         String
-  Inspecciones  Inspeccion[]
+  id                String            @id @default(uuid())
+  userId            String
+  descripcion       String
+  noChasis          String
+  noMotor           String
+  noPlaca           String
+  tpVehiculoId      String
+  tpVehiculo        TipoVehiculo      @relation(fields: [tpVehiculoId], references: [id])
+  marcaId           String
+  marca             Marca             @relation(fields: [marcaId], references: [id])
+  modeloId          String
+  modelo            Modelo            @relation(fields: [modeloId], references: [id])
+  tpCombustibleId   String
+  tpCombustible     TipoCombustible   @relation(fields: [tpCombustibleId], references: [id])
+  estado            Boolean
+  photo             String
+  Inspecciones      Inspeccion[]
   RentaDevoluciones RentaDevolucion[]
 
   @@index([tpVehiculoId])
@@ -41,14 +41,14 @@ model Vehiculo {
 }
 
 model TipoVehiculo {
-  id          String  @id @default(uuid())
+  id          String     @id @default(uuid())
   descripcion String
   estado      Boolean
   Vehiculos   Vehiculo[]
 }
 
 model Marca {
-  id          String  @id @default(uuid())
+  id          String     @id @default(uuid())
   descripcion String
   estado      Boolean
   Modelos     Modelo[]
@@ -56,9 +56,9 @@ model Marca {
 }
 
 model Modelo {
-  id          String  @id @default(uuid())
+  id          String     @id @default(uuid())
   idMarca     String
-  marca       Marca @relation(fields: [idMarca], references: [id])
+  marca       Marca      @relation(fields: [idMarca], references: [id])
   descripcion String
   estado      Boolean
   Vehiculos   Vehiculo[]
@@ -67,76 +67,75 @@ model Modelo {
 }
 
 model TipoCombustible {
-  id          String  @id @default(uuid())
+  id          String     @id @default(uuid())
   descripcion String
   estado      Boolean
   Vehiculos   Vehiculo[]
 }
 
 model Cliente {
-  id           String  @id @default(uuid())
-  nombre       String
-  cedula       String
-  noTarjetaCr  String
-  limiteCredito Float
-  tipoPersona  String
-  estado       Boolean
-  Inspecciones Inspeccion[]
+  id                String            @id @default(uuid())
+  nombre            String
+  cedula            String
+  noTarjetaCr       String
+  limiteCredito     Float
+  tipoPersona       String
+  estado            Boolean
+  Inspecciones      Inspeccion[]
   RentaDevoluciones RentaDevolucion[]
 }
 
 model Empleado {
-  id           String  @id @default(uuid())
-  nombre       String
-  cedula       String
-  tandaLabor   String
+  id                String            @id @default(uuid())
+  nombre            String
+  cedula            String
+  tandaLabor        String
   porcientoComision Float
-  fechaIngreso DateTime
-  estado       Boolean
-  Inspecciones Inspeccion[]
+  fechaIngreso      DateTime
+  estado            Boolean
+  Inspecciones      Inspeccion[]
   RentaDevoluciones RentaDevolucion[]
 }
 
 model Inspeccion {
-  id             String  @id @default(uuid())
-  vehiculoId     String
-  vehiculo       Vehiculo @relation(fields: [vehiculoId], references: [id])
-  clienteId      String
-  cliente        Cliente @relation(fields: [clienteId], references: [id])
-  tieneRalladuras Boolean
+  id                  String   @id @default(uuid())
+  vehiculoId          String
+  vehiculo            Vehiculo @relation(fields: [vehiculoId], references: [id])
+  clienteId           String
+  cliente             Cliente  @relation(fields: [clienteId], references: [id])
+  tieneRalladuras     Boolean
   cantidadCombustible String
-  tieneGomaRespuesta Boolean
-  tieneGato      Boolean
+  tieneGomaRespuesta  Boolean
+  tieneGato           Boolean
   tieneRoturasCristal Boolean
-  estadoGomas    String
-  fecha          DateTime
-  empleadoId     String
-  empleado       Empleado @relation(fields: [empleadoId], references: [id])
-  estado         Boolean
-  userId         String
+  estadoGomas         String
+  fecha               DateTime
+  empleadoId          String
+  empleado            Empleado @relation(fields: [empleadoId], references: [id])
+  estado              Boolean
+  userId              String
 
   @@index([vehiculoId])
   @@index([clienteId])
   @@index([empleadoId])
   @@index([userId])
-
 }
 
 model RentaDevolucion {
-  id             String  @id @default(uuid())
-  empleadoId     String
-  userId         String
-  empleado       Empleado @relation(fields: [empleadoId], references: [id])
-  vehiculoId     String
-  vehiculo       Vehiculo @relation(fields: [vehiculoId], references: [id], onDelete: Cascade)
-  clienteId      String
-  cliente        Cliente @relation(fields: [clienteId], references: [id])
-  fechaRenta     DateTime
+  id              String   @id @default(uuid())
+  empleadoId      String
+  userId          String
+  empleado        Empleado @relation(fields: [empleadoId], references: [id])
+  vehiculoId      String
+  vehiculo        Vehiculo @relation(fields: [vehiculoId], references: [id], onDelete: Cascade)
+  clienteId       String
+  cliente         Cliente  @relation(fields: [clienteId], references: [id])
+  fechaRenta      DateTime
   fechaDevolucion DateTime
-  montoPorDia    Float
-  cantidadDias   Int
-  comentario     String
-  estado         Boolean
+  montoPorDia     Float
+  cantidadDias    Int
+  comentario      String
+  estado          Boolean
 
   @@index([empleadoId])
   @@index([vehiculoId])
@@ -144,3 +143,38 @@ model RentaDevolucion {
   @@index([userId])
 }
 
+model Car {
+  id           String   @id @default(uuid())
+  userId       String
+  name         String   @db.Text
+  CV           String   @db.Text
+  transmission String   @db.Text
+  people       String   @db.Text
+  photo        String   @db.Text
+  priceDay     String   @db.Text
+  engine       String   @db.Text
+  type         String   @db.Text
+  isPublish    Boolean?
+  oders        Order[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Order {
+  id           String   @id @default(uuid())
+  carId        String   @db.Text
+  carName      String   @db.Text
+  userId       String   @db.Text
+  orderDate    DateTime @default(now())
+  orderEndDate DateTime @default(now())
+  status       String   @db.Text
+  totalAmount  String   @db.Text
+
+  car Car @relation(fields: [carId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([carId])
+  @@index([userId])
+}
