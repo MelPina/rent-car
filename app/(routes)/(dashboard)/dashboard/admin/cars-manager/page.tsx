@@ -11,19 +11,19 @@ export default async function CarsManagerPage() {
     return redirect("/");
     }
     
-  const vehiculo = await db.vehiculo.findMany({
-    where: {
-      userId: userId,
-  },
-   include: {
+  // const vehiculo = await db.car.findMany({
+  //   where: {
+  //     userId: userId,
+  // },
+  //  include: {
 
-          tpVehiculo: true,
-          marca: true,
-          modelo: true,
-          tpCombustible: true,
-  },
+  //         tpVehiculo: true,
+  //         marca: true,
+  //         modelo: true,
+  //         tpCombustible: true,
+  // },
    
-  });
+  // });
   
   
   return (

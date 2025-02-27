@@ -34,7 +34,7 @@ export function FormAddCar(props: FormAddCarProps) {
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
-      cv: "",
+      CV: "",
       transmission: "",
       people: "",
       photo: "",
@@ -47,20 +47,21 @@ export function FormAddCar(props: FormAddCarProps) {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setOpenDialog(false);
     try {
-            await axios.post('/api/car', values);
-            toast({
-              title: "Car created ✅",
-            });
-            router.refresh();
-          } catch (error) {
-            toast({
-              title: "Something went wrong",
-              variant: "destructive",
-            });
-          }
+      await axios.post('/api/car', values);
+      toast({
+        title: "Car created ✅",
+      });
+      router.refresh();
+    } catch (error) {
+      toast({
+        title: "Something went wrong",
+        variant: "destructive",
+      });
+    }
     console.log(values);
   };
 
+  const { isValid } = form.formState;
 
   return (
     <Form {...form}>
@@ -81,7 +82,7 @@ export function FormAddCar(props: FormAddCarProps) {
           />
           <FormField
             control={form.control}
-            name="cv"
+            name="CV"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Power</FormLabel>
@@ -101,7 +102,10 @@ export function FormAddCar(props: FormAddCarProps) {
                 <FormLabel>Transmission</FormLabel>
 
                 <Select
-                  onValueChange={field.onChange}
+                 onValueChange={(value) => {
+                  field.onChange(value);
+                  form.trigger("transmission"); 
+                }}                
                   defaultValue={field.value}
                 >
                   <FormControl>
@@ -126,7 +130,10 @@ export function FormAddCar(props: FormAddCarProps) {
                 <FormLabel>People</FormLabel>
 
                 <Select
-                  onValueChange={field.onChange}
+                 onValueChange={(value) => {
+                  field.onChange(value);
+                  form.trigger("people"); 
+                }}    
                   defaultValue={field.value}
                 >
                   <FormControl>
@@ -154,7 +161,10 @@ export function FormAddCar(props: FormAddCarProps) {
                 <FormLabel>Engine</FormLabel>
 
                 <Select
-                  onValueChange={field.onChange}
+                 onValueChange={(value) => {
+                  field.onChange(value);
+                  form.trigger("engine"); 
+                }}    
                   defaultValue={field.value}
                 >
                   <FormControl>
@@ -182,7 +192,10 @@ export function FormAddCar(props: FormAddCarProps) {
                 <FormLabel>Type</FormLabel>
 
                 <Select
-                  onValueChange={field.onChange}
+                  onValueChange={(value) => {
+                    field.onChange(value);
+                    form.trigger("type"); 
+                  }}    
                   defaultValue={field.value}
                 >
                   <FormControl>
@@ -220,6 +233,7 @@ export function FormAddCar(props: FormAddCarProps) {
                       onClientUploadComplete={(res) => {
                         form.setValue("photo", res?.[0].url);
                         setPhotoUploaded(true);
+                        form.trigger("photo");
                       }}
                       onUploadError={(error: Error) => {
                         console.log(error);
@@ -232,10 +246,29 @@ export function FormAddCar(props: FormAddCarProps) {
             )}
           />
 
+          <FormField
+            control={form.control}
+            name="priceDay"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Price per Day</FormLabel>
+                <FormControl>
+                  <Input placeholder="20$" type="number" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        
         </div>
-        <Button type="submit">Submit</Button>
+        
+        <Button type="submit" className="w-full mt-5" disabled={!isValid}>
+          Agregar
+        </Button>
+
       </form>
     </Form >
+    
   );
 
 }

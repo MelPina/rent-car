@@ -8,7 +8,7 @@ export async function POST(req: Request) {
         if (!userId) {
             return new NextResponse("Unauthorized", { status: 401 });
         }
-        const car = await db.vehiculo.create({
+        const car = await db.car.create({
             data: {
                 userId,
                 ...data,
