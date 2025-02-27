@@ -7,10 +7,10 @@ import { TableReserves } from "./components/TableReserves";
 
 
 export default async function pageReserves() {
-    const { userId } = auth();
-    // if (!userId) {
-    //     return redirect("/");
-    // }
+    const { userId } = await auth();
+    if (!userId) {
+        return redirect("/");
+    }
     const order = await db.rentaDevolucion.findMany({
         where: {
             userId: userId,

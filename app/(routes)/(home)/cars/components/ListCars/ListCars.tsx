@@ -8,9 +8,9 @@ import { Vehiculo } from "@prisma/client";
 import Link from "next/link";
 import { ListCarsProps } from "./ListCars.types";
 import { auth } from "@clerk/nextjs/server";
-export function ListCars(props: ListCarsProps) {
+export async function ListCars(props: ListCarsProps) {
     const { vehiculos } = props;
-    const userId = auth();
+    const userId = await auth();
     if (!vehiculos) {
         return <p>Skeleton... </p>;
     }

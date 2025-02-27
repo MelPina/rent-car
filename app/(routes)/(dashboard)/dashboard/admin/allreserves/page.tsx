@@ -6,7 +6,7 @@ import { db } from "@/lib/db";
 import { TableReserves } from "../../../reserves/components/TableReserves";
 
 export default async function ReservesManagerPage() {
-  const {userId}= auth();
+  const {userId}= await auth();
   // if (!userId || !isAdministrator(userId)) {
   //   return redirect("/");
   //   }

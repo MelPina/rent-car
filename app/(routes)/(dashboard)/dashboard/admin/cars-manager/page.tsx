@@ -6,10 +6,10 @@ import { db } from "@/lib/db";
 import { TableCars } from "./components/TableCars/TableCars";
 
 export default async function CarsManagerPage() {
-  const {userId}= auth();
-  // if (!userId || !isAdministrator(userId)) {
-  //   return redirect("/");
-  //   }
+  const {userId}= await auth();
+  if (!userId || !isAdministrator(userId)) {
+    return redirect("/");
+    }
     
   const vehiculo = await db.vehiculo.findMany({
     where: {

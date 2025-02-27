@@ -5,10 +5,10 @@ import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
 
 export default async function EmpleadosManagerPage() {
-  // const {userId}= auth();
-  // if (!userId || !isAdministrator(userId)) {
-  //   return redirect("/");
-  //   }
+  const {userId}= await auth();
+  if (!userId || !isAdministrator(userId)) {
+    return redirect("/");
+    }
     
     // const vehiculo = await db.vehiculo.findMany({
     // where: {
