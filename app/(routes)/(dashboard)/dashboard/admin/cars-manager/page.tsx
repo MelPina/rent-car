@@ -3,7 +3,7 @@ import { ButtonAddCar } from "./components/ButtonAddCar";
 import { isAdministrator } from "@/lib/isAdministrator";
 import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
-import { TableCars } from "./components/TableCars/TableCars";
+import { ListCars } from "./components/ListCars";
 
 export default async function CarsManagerPage() {
   const {userId}= await auth();
@@ -11,21 +11,16 @@ export default async function CarsManagerPage() {
     return redirect("/");
     }
     
-  // const vehiculo = await db.car.findMany({
-  //   where: {
-  //     userId: userId,
-  // },
-  //  include: {
-
-  //         tpVehiculo: true,
-  //         marca: true,
-  //         modelo: true,
-  //         tpCombustible: true,
-  // },
-   
-  // });
+  const car = await db.car.findMany({
+    where: {
+      userId: userId,
+  },
+    orderBy: {
+      createdAt: "desc",      
+    }
+  });
   
-  
+  console.log(car);
   return (
     <div>
       <div className="flex justify-between">
@@ -33,6 +28,7 @@ export default async function CarsManagerPage() {
         <ButtonAddCar/>
       </div>
       <div>
+        <ListCars cars={car}/>
          {/* <TableCars vehiculos={vehiculo} />  */}
       </div>
     </div>
