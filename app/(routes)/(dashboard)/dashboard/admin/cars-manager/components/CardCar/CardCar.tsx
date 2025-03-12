@@ -100,7 +100,7 @@ export function CardCar(props: CardCarProps) {
                 </div>
                 <div className="flex justify-between mt-3 gap-x-4">
                     <Button variant="outline" onClick={(deleteCar)}>
-                        Delete
+                        Eliminar
                         <Trash className="w-4 h-4 ml-2" />
                     </Button>
                     <ButtonEditCar carData={car} />

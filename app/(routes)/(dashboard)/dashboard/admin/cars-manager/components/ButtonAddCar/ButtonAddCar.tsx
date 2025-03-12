@@ -19,12 +19,12 @@ export function ButtonAddCar() {
     <Dialog open={openDialog} onOpenChange={setOpenDialog}>
       <DialogTrigger asChild>
         <Button variant="outline" onClick={() => setOpenDialog(true)} >
-          Add new car
+         Registrar Vehículo
           <PlusCircle className="ml-2" />
         </Button>
       </DialogTrigger >
       <DialogContent>
-        <DialogTitle>Add new car</DialogTitle>
+        <DialogTitle>Registrar Vehículo</DialogTitle>
         <DialogHeader>
           <DialogDescription>
           </DialogDescription>

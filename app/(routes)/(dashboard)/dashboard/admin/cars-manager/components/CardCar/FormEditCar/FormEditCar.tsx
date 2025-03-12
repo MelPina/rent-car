@@ -74,7 +74,7 @@ export function FormEditCar(props: FormEditCarProps) {
                         name="name"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Username</FormLabel>
+                                <FormLabel>Modelo</FormLabel>
                                 <FormControl>
                                     <Input placeholder="Tesla Model S Plaid" {...field} />
                                 </FormControl>
@@ -101,7 +101,7 @@ export function FormEditCar(props: FormEditCarProps) {
                         name="transmission"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Transmission</FormLabel>
+                                <FormLabel>Transmisión</FormLabel>
 
                                 <Select
                                     onValueChange={(value) => {
@@ -116,8 +116,8 @@ export function FormEditCar(props: FormEditCarProps) {
                                         </SelectTrigger>
                                     </FormControl>
                                     <SelectContent>
-                                        <SelectItem value="manual">Manual</SelectItem>
-                                        <SelectItem value="automatic">Automático</SelectItem>
+                                        <SelectItem value="Manual">Manual</SelectItem>
+                                        <SelectItem value="Automatico">Automático</SelectItem>
                                     </SelectContent>
                                 </Select>
                                 <FormMessage />
@@ -129,7 +129,7 @@ export function FormEditCar(props: FormEditCarProps) {
                         name="people"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>People</FormLabel>
+                                <FormLabel>Cantidad de Personas</FormLabel>
 
                                 <Select
                                     onValueChange={(value) => {
@@ -140,7 +140,7 @@ export function FormEditCar(props: FormEditCarProps) {
                                 >
                                     <FormControl>
                                         <SelectTrigger>
-                                            <SelectValue placeholder="Select the quantity of people" />
+                                            <SelectValue placeholder="Seleccione la cantidad de personas" />
                                         </SelectTrigger>
                                     </FormControl>
                                     <SelectContent>
@@ -160,7 +160,7 @@ export function FormEditCar(props: FormEditCarProps) {
                         name="engine"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Engine</FormLabel>
+                                <FormLabel>Motor</FormLabel>
 
                                 <Select
                                     onValueChange={(value) => {
@@ -171,7 +171,7 @@ export function FormEditCar(props: FormEditCarProps) {
                                 >
                                     <FormControl>
                                         <SelectTrigger>
-                                            <SelectValue placeholder="Select the engine of the car" />                    </SelectTrigger>
+                                            <SelectValue placeholder="Seleccione el motor del vehículo" />                    </SelectTrigger>
                                     </FormControl>
                                     <SelectContent>
 
@@ -191,7 +191,7 @@ export function FormEditCar(props: FormEditCarProps) {
                         name="type"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Type</FormLabel>
+                                <FormLabel>Tipo de Vehículo </FormLabel>
 
                                 <Select
                                     onValueChange={(value) => {
@@ -202,7 +202,7 @@ export function FormEditCar(props: FormEditCarProps) {
                                 >
                                     <FormControl>
                                         <SelectTrigger>
-                                            <SelectValue placeholder="Select the type of car" />
+                                            <SelectValue placeholder="Seleccione el tipo de Vehículo" />
                                         </SelectTrigger>
                                     </FormControl>
                                     <SelectContent>
@@ -253,7 +253,7 @@ export function FormEditCar(props: FormEditCarProps) {
                         name="priceDay"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Price per Day</FormLabel>
+                                <FormLabel>Precio por día</FormLabel>
                                 <FormControl>
                                     <Input placeholder="20$" type="number" {...field} />
                                 </FormControl>
