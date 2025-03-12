@@ -4,6 +4,7 @@ import { Car } from "@prisma/client";
 import Image from 'next/image'
 import { Fuel, Gem, Users, Wrench } from "lucide-react";
 import { CarsListProps } from "../admin/cars-manager/components/ListCars/ListCars.types";
+import { ModalAddReservation } from "@/components/Shared/ModalAddReservation";
 
 
 export function CarList(props: CarsListProps) {
@@ -56,7 +57,7 @@ export function CarList(props: CarsListProps) {
                             </p>
                         </div>
                         <div className="flex items-center justify-center gap-x-3">
-                         
+                         <ModalAddReservation car={car} />
                         </div>
                     </div>
                 );
