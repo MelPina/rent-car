@@ -27,6 +27,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { FormEditCarProps } from "./FromEditCar.types";
 import { on } from "events";
+import { toast } from "@/hooks/use-toast";
 
 export function FormEditCar(props: FormEditCarProps) {
     const { carData } = props;
@@ -52,17 +53,17 @@ export function FormEditCar(props: FormEditCarProps) {
    
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         setOpenDialog(false);
+        try {
+            await axios.patch(`/api/car/${carData.id}/form`, values);
+            toast({ title: "Car edited" });
+            router.refresh();
+        } catch (error) {
+            toast({
+                title: "Something went wrong",
+                variant: "destructive",
+            });
+        }
     };
-    try {
-        await axios.patch('/api/car/$${carData.id}/form', values);
-        toast({ title: "Car edited" });
-        router.refresh();
-    } catch (error) {
-    }
-    toast({
-        title: "Something went wrong",
-        variant: "destructive",
-    });
 
     return (
         <Form {...form}>
