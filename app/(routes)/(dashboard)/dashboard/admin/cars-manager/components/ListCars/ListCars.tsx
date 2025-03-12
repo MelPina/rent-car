@@ -1,15 +1,15 @@
 import { CardCar } from "../CardCar";
-import { ListCarsProps } from "./ListCars.types";
+import { CarsListProps } from "./ListCars.types";
 
 
-export function ListCars(props: ListCarsProps) {
+export function ListCars(props: CarsListProps) {
     const { cars } = props;
 
     return (
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 my-4">
+        <div className="grid grid-cols-2 gap-6 my-4 lg:grid-cols-4">
             {cars.map((car) => (
-                <CardCar car={car} key={car.id} />
+                <CardCar car={car} key={car.id}/>
             ))}
         </div>
     );
