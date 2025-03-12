@@ -4,7 +4,8 @@ import { toast } from "@/components/ui/use-toast";
 import { Fuel, Gauge, Gem, Trash, Upload, Users, Wrench } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { CardCarProps } from "./CardCar.type";
+import { ButtonEditCar } from "./ButtonEditCar";
+import { CardCarProps } from "./CardCar.types";
 export function CardCar(props: CardCarProps) {
     const { car } = props;
     return (
@@ -63,7 +64,7 @@ export function CardCar(props: CardCarProps) {
                         Delete
                         <Trash className="w-4 h-4 ml-2" />
                     </Button>
-                    <p>Button edit car..</p>
+                    <ButtonEditCar carData={car}/>
                 </div>
                 {car.isPublish ? (
                     <Button
