@@ -49,7 +49,7 @@ export function FormAddCar(props: FormAddCarProps) {
     try {
       await axios.post('/api/car', values);
       toast({
-        title: "Car created ✅",
+        title: "Vehículo Registrado ✅",
       });
       router.refresh();
     } catch (error) {

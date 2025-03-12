@@ -55,7 +55,7 @@ export function FormEditCar(props: FormEditCarProps) {
         setOpenDialog(false);
         try {
             await axios.patch(`/api/car/${carData.id}/form`, values);
-            toast({ title: "Car edited" });
+            toast({ title: "Vehículo modificado correctamente ✅" });
             router.refresh();
         } catch (error) {
             toast({

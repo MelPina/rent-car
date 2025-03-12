@@ -1,13 +1,50 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { toast } from "@/components/ui/use-toast";
+
 import { Fuel, Gauge, Gem, Trash, Upload, Users, Wrench } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { ButtonEditCar } from "./ButtonEditCar";
 import { CardCarProps } from "./CardCar.types";
+import axios from "axios";
+import { toast } from "@/hooks/use-toast";
 export function CardCar(props: CardCarProps) {
     const { car } = props;
+    const router = useRouter();
+
+    const deleteCar = async () => {
+        try {
+            await axios.delete(`/api/car/${car.id}`);
+            toast({ title: "Car deleted" });
+            router.refresh();
+        } catch (error) {
+            toast({
+                title: "Something went wrong",
+                variant: "destructive",
+            });
+        }
+    };
+
+    const handlerPublishCar = async (publish: boolean) => {
+        try {
+            await axios.patch(`/api/car/${car.id}`, { isPublish: publish });
+            if (publish) {
+                toast({
+                    title: "Car Published ✌",
+                });
+            } else {
+                toast({
+                    title: "Car unpublish ⚠",
+                });
+            }
+            router.refresh();
+        } catch (error) {
+            toast({
+                title: "Something went wrong",
+                variant: "destructive",
+            });
+        }
+    };
     return (
         <div className="relative p-1 bg-white rounded-lg shadow-md hover:shadow-lg">
             <Image
@@ -19,11 +56,11 @@ export function CardCar(props: CardCarProps) {
             />
 
             {car.isPublish ? (
-                <p className="absolute top-0 right-0 w-full p-1 text-center text-white bg-green-700">
+                <p className="absolute top-0 right-0 w-full p-1 text-center text-white bg-green-700 rounded-t-lg">
                     Published
                 </p>
             ) : (
-                <p className="absolute top-0 left-0 right-0 w-full p-1 text-center text-white bg-red-300">
+                <p className="absolute top-0 left-0 right-0 w-full p-1 text-center text-white bg-red-300 rounded-t-lg">
                     Not Published
                 </p>
             )}
@@ -60,17 +97,17 @@ export function CardCar(props: CardCarProps) {
 
                 </div>
                 <div className="flex justify-between mt-3 gap-x-4">
-                    <Button variant="outline" onClick={() => console.log("delete")}>
+                    <Button variant="outline" onClick={(deleteCar)}>
                         Delete
                         <Trash className="w-4 h-4 ml-2" />
                     </Button>
-                    <ButtonEditCar carData={car}/>
+                    <ButtonEditCar carData={car} />
                 </div>
                 {car.isPublish ? (
                     <Button
                         className="w-full mt-3"
                         variant="outline"
-                        onClick={() => console.log("Unpublish")}
+                        onClick={() => handlerPublishCar(false)}
                     >
                         Unpublish
                         <Upload className="w-4 h-4 ml-2" />
@@ -78,7 +115,7 @@ export function CardCar(props: CardCarProps) {
                 ) : (
                     <Button
                         className="w-full mt-3"
-                        onClick={() => console.log("Publish")}
+                        onClick={() => handlerPublishCar(true)}
                     >
                         Publish
                         <Upload className="w-4 h-4 ml-2" />
