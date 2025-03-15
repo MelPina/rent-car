@@ -12,7 +12,8 @@ export default async function PageDashboard() {
 
   const car = await db.car.findMany({
     where: {
-      userId: userId,
+      isPublish: true,
+     
     },
     orderBy: {
       createdAt: "desc",
