@@ -224,7 +224,7 @@ export function FormAddCar(props: FormAddCarProps) {
                 <FormLabel>Imagen</FormLabel>
                 <FormControl>
                   {photoUploaded ? (
-                    <p className="text-sm">Image cargada correctamente!</p>
+                    <p className="text-sm">Imagen cargada correctamente!</p>
                   ) : (
                     <UploadButton
                       className="rounded-lg bg-slate-600/20 text-slate-800 outline-dotted outline-3"

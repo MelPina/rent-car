@@ -30,11 +30,11 @@ export function CardCar(props: CardCarProps) {
             await axios.patch(`/api/car/${car.id}`, { isPublish: publish });
             if (publish) {
                 toast({
-                    title: "Car Published ✌",
+                    title: "Vehículo Publicado ✌",
                 });
             } else {
                 toast({
-                    title: "Car unpublish ⚠",
+                    title: "Vehículo No Publicado ⚠",
                 });
             }
             router.refresh();
@@ -59,11 +59,11 @@ export function CardCar(props: CardCarProps) {
 
             {car.isPublish ? (
                 <p className="absolute top-0 right-0 w-full p-1 text-center text-white bg-green-700 rounded-t-lg">
-                    Published
+                    Publicado
                 </p>
             ) : (
                 <p className="absolute top-0 left-0 right-0 w-full p-1 text-center text-white bg-red-300 rounded-t-lg">
-                    Not Published
+                    No Publicado
                 </p>
             )}
 
@@ -111,7 +111,7 @@ export function CardCar(props: CardCarProps) {
                         variant="outline"
                         onClick={() => handlerPublishCar(false)}
                     >
-                        Unpublish
+                        No Publicado
                         <Upload className="w-4 h-4 ml-2" />
                     </Button>
                 ) : (
@@ -119,7 +119,7 @@ export function CardCar(props: CardCarProps) {
                         className="w-full mt-3"
                         onClick={() => handlerPublishCar(true)}
                     >
-                        Publish
+                        Publicado
                         <Upload className="w-4 h-4 ml-2" />
                     </Button>
                 )}
