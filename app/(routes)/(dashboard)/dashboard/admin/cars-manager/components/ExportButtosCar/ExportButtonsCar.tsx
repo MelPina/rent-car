@@ -5,6 +5,7 @@ import autoTable from "jspdf-autotable";
 import * as XLSX from "xlsx";
 import axios from "axios";
 import { toast } from "@/hooks/use-toast";
+import { Button } from "@/components/ui/button";
 
 interface Car {
     id: string;
@@ -75,21 +76,23 @@ const ExportButtons = () => {
     };
 
     return (
-        <div className="flex space-x-4 mt-4">
-            <button
+       <>
+       
+            <Button
                 onClick={exportToPDF}
                 className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700 transition"
             >
                 Exportar a PDF
-            </button>
+            </Button>
 
-            <button
+            <Button
                 onClick={exportToExcel}
-                className="bg-green-700 text-white px-4 py-2 rounded-md hover:bg-green-700 transition"
+                className="bg-green-700 text-white px-4 py-2 rounded-md hover:bg-green-900 transition"
             >
                 Exportar a Excel
-            </button>
-        </div>
+            </Button>
+            </>
+        
     );
 };
 
