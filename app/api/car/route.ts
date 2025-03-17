@@ -20,3 +20,13 @@ export async function POST(req: Request) {
         return new NextResponse("Interal Error", { status: 500 });
     }
 }
+
+export async function GET() {
+    try {
+        const cars = await db.car.findMany();
+        return NextResponse.json(cars);
+    } catch (error) {
+        console.error("[CAR_GET]", error);
+        return new NextResponse("Error interno del servidor", { status: 500 });
+    }
+}

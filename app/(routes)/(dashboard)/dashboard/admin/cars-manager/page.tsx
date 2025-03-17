@@ -4,6 +4,7 @@ import { isAdministrator } from "@/lib/isAdministrator";
 import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
 import { ListCars } from "./components/ListCars";
+import ExportButtonsCar from "./components/ExportButtosCar/ExportButtonsCar";
 
 export default async function CarsManagerPage() {
   const {userId}= await auth();
@@ -25,7 +26,10 @@ export default async function CarsManagerPage() {
     <div>
       <div className="flex justify-between">
         <h2 className="text-2xl font-bold">Gestiona tus vehículos</h2>
-        <ButtonAddCar/>
+        <div className="flex items-center space-x-4">
+        <ExportButtonsCar />
+        <ButtonAddCar />
+      </div>
       </div>
       <div>
         <ListCars cars={car}/>
