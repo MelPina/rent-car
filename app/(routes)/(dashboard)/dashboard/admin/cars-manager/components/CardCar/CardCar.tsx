@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 
-import { Fuel, Gauge, Gem, Trash, Upload, Users, Wrench } from "lucide-react";
+import { Gem, Trash, Upload, Users, Wrench } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { ButtonEditCar } from "./ButtonEditCar";
@@ -17,7 +17,7 @@ export function CardCar(props: CardCarProps) {
             await axios.delete(`/api/car/${car.id}`);
             toast({ title: "Car deleted" });
             router.refresh();
-        } catch (error) {
+        } catch {
             toast({
                 title: "Something went wrong",
                 variant: "destructive",
@@ -38,7 +38,7 @@ export function CardCar(props: CardCarProps) {
                 });
             }
             router.refresh();
-        } catch (error) {
+        } catch  {
             toast({
                 title: "Something went wrong",
                 variant: "destructive",
