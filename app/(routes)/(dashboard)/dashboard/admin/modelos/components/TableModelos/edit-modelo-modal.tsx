@@ -31,7 +31,6 @@ interface EditModeloModalProps {
   onSuccess: () => void
 }
 
-// Definir el esquema de validación
 const formSchema = z.object({
   descripcion: z.string().min(1, "La descripción es requerida"),
   idMarca: z.string().min(1, "La marca es requerida"),
@@ -51,6 +50,15 @@ export function EditModeloModal({ isOpen, onClose, modelo, onSuccess }: EditMode
       estado: modelo.estado,
     },
   })
+
+  useEffect(() => {
+    if (modelo) {
+      form.reset({
+        descripcion: modelo.descripcion,
+        estado: modelo.estado,
+      })
+    }
+  }, [modelo, form])
 
   // Cargar las marcas para el select
   const loadMarcas = async () => {
