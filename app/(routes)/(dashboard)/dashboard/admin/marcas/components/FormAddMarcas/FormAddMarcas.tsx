@@ -88,7 +88,13 @@ export function FormAddMarcas(props: FormAddMarcasProps) {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setOpenDialog(false)
     try {
-      await axios.post("/api/marcas", values)
+      const formattedValues = {
+        descripcion: values.descripcion,
+        estado: values.estado,
+        Modelos: values.Modelos ? [values.Modelos] : [], 
+        Vehiculos: values.Vehiculos ? [values.Vehiculos] : [] 
+    };
+      await axios.post("/api/marcas", formattedValues)
       toast({
         title: "Marca Registrada ✅",
       })
@@ -115,7 +121,7 @@ export function FormAddMarcas(props: FormAddMarcasProps) {
               <FormItem>
                 <FormLabel>Marca</FormLabel>
                 <FormControl>
-                  <Input placeholder="Tesla" {...field} />
+                  <Input placeholder="Nombre de la marca" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

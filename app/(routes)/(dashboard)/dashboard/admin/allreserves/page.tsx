@@ -7,9 +7,9 @@ import { TableReserves } from "../../../reserves/components/TableReserves";
 
 export default async function ReservesManagerPage() {
   const {userId}= await auth();
-  // if (!userId || !isAdministrator(userId)) {
-  //   return redirect("/");
-  //   }
+  if (!userId || !isAdministrator(userId)) {
+    return redirect("/");
+    }
 
   const order = await db.rentaDevolucion.findMany({
     where: {
