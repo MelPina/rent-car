@@ -6,6 +6,7 @@ import { Plus } from "lucide-react"
 import type { Modelo, Marca } from "@prisma/client"
 import { Skeleton } from "@/components/ui/skeleton"
 import { ModelosTable } from "./components/TableModelos"
+import { AddModeloModal } from "./components/TableModelos/add-model-modal"
 
 type ModeloWithMarca = Modelo & {
   marca: Marca
@@ -14,6 +15,7 @@ type ModeloWithMarca = Modelo & {
 export default function ModelosPage() {
   const [modelos, setModelos] = useState<ModeloWithMarca[]>([])
   const [isLoading, setIsLoading] = useState(true)
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false)
 
   const fetchModelos = async () => {
     try {
@@ -37,13 +39,18 @@ export default function ModelosPage() {
     fetchModelos()
   }, [])
 
+  const handleAddSuccess = () => {
+    setIsAddModalOpen(false)
+    fetchModelos()
+  }
+
   return (
     <div className="container mx-auto py-10">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">Gestiona los Modelos</h1>
-        <Button>
+        <Button onClick={() => setIsAddModalOpen(true)}>
           <Plus className="mr-2 h-4 w-4" />
-          Nuevo Modelo
+          Registrar Modelo
         </Button>
       </div>
 
@@ -53,8 +60,10 @@ export default function ModelosPage() {
           <Skeleton className="h-96 w-full" />
         </div>
       ) : (
-        <ModelosTable modelos={modelos} />
+        <ModelosTable modelos={modelos} refreshData={fetchModelos}/>
       )}
+
+      <AddModeloModal isOpen={isAddModalOpen} onClose={() => setIsAddModalOpen(false)} onSuccess={handleAddSuccess} />
     </div>
   )
 }

@@ -21,10 +21,11 @@ type ModeloWithMarca = Modelo & {
 }
 
 interface ModelosTableProps {
-    modelos: ModeloWithMarca[]
+    modelos: ModeloWithMarca[];
+    refreshData: () => void;
 }
 
-export function ModelosTable({ modelos }: ModelosTableProps) {
+export function ModelosTable({ modelos, refreshData }: ModelosTableProps) {
     const [currentPage, setCurrentPage] = useState(1)
     const [isEditModalOpen, setIsEditModalOpen] = useState(false)
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
@@ -51,13 +52,13 @@ export function ModelosTable({ modelos }: ModelosTableProps) {
     }
 
     const handleEditSuccess = () => {
-        setIsEditModalOpen(false)
-        // Aquí podrías refrescar los datos si es necesario
+        setIsEditModalOpen(false);
+        refreshData();
     }
 
     const handleDeleteSuccess = () => {
-        setIsDeleteModalOpen(false)
-        // Aquí podrías refrescar los datos si es necesario
+        setIsDeleteModalOpen(false);
+        refreshData();
     }
 
     return (
