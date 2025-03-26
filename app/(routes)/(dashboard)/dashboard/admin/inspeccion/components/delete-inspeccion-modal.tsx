@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import type { Inspeccion, Vehiculo } from "@prisma/client"
+import type { Inspeccion, Vehiculo, Cliente, Empleado } from "@prisma/client"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -14,19 +14,27 @@ import {
 } from "@/components/ui/alert-dialog"
 import { toast } from "@/hooks/use-toast"
 
-type InspeccionWithVehiculo = Inspeccion & {
-  vehiculo: Vehiculo
+// Definir el tipo con todas las relaciones necesarias
+type InspeccionWithRelations = Inspeccion & {
+  vehiculo: Vehiculo | null
+  cliente: Cliente | null
+  empleado: Empleado | null
 }
 
 interface DeleteInspeccionModalProps {
   isOpen: boolean
   onClose: () => void
-  inspeccion: InspeccionWithVehiculo
+  inspeccion: InspeccionWithRelations
   onSuccess: () => void
 }
 
 export function DeleteInspeccionModal({ isOpen, onClose, inspeccion, onSuccess }: DeleteInspeccionModalProps) {
   const [isLoading, setIsLoading] = useState(false)
+
+  // Verificar que inspeccion existe antes de intentar acceder a sus propiedades
+  if (!inspeccion) {
+    return null
+  }
 
   const handleDelete = async () => {
     try {
@@ -38,7 +46,8 @@ export function DeleteInspeccionModal({ isOpen, onClose, inspeccion, onSuccess }
       })
 
       if (!response.ok) {
-        throw new Error("Error al eliminar la inspección")
+        const errorData = await response.json().catch(() => ({}))
+        throw new Error(errorData.message || "Error al eliminar la inspección")
       }
 
       toast({
@@ -52,7 +61,7 @@ export function DeleteInspeccionModal({ isOpen, onClose, inspeccion, onSuccess }
       toast({
         variant: "destructive",
         title: "Error",
-        description: "No se pudo eliminar la inspección",
+        description: error instanceof Error ? error.message : "No se pudo eliminar la inspección",
       })
     } finally {
       setIsLoading(false)
@@ -66,8 +75,12 @@ export function DeleteInspeccionModal({ isOpen, onClose, inspeccion, onSuccess }
           <AlertDialogTitle>¿Está seguro de eliminar esta inspección?</AlertDialogTitle>
           <AlertDialogDescription>
             Esta acción no se puede deshacer. Esto eliminará permanentemente la inspección del vehículo
-            <span className="font-medium"> {inspeccion.vehiculo.descripcion}</span> con fecha
-            <span className="font-medium"> {new Date(inspeccion.fecha).toLocaleDateString()}</span>.
+            <span className="font-medium"> {inspeccion.vehiculo?.descripcion || "No disponible"}</span> con fecha
+            <span className="font-medium">
+              {" "}
+              {inspeccion.fecha ? new Date(inspeccion.fecha).toLocaleDateString() : "No disponible"}
+            </span>
+            .
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

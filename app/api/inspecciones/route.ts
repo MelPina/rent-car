@@ -13,6 +13,8 @@ export async function GET(req: Request) {
     const inspecciones = await db.inspeccion.findMany({
       include: {
         vehiculo: true,
+        cliente: true,
+        empleado: true,
       },
       orderBy: {
         fecha: "desc",
@@ -37,6 +39,7 @@ export async function POST(req: Request) {
 
     const inspeccion = await db.inspeccion.create({
       data: {
+        userId,
         ...values,
       },
     })

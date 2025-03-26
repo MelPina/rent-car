@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
 import { Edit, Trash2 } from "lucide-react"
-import type { Inspeccion, Vehiculo } from "@prisma/client"
+import type { Inspeccion, Vehiculo, Cliente, Empleado } from "@prisma/client"
 import { EditInspeccionModal } from "./edit-inspeccion-modal"
 import { DeleteInspeccionModal } from "./delete-inspeccion-modal"
 import {
@@ -16,12 +16,15 @@ import {
   PaginationNext,
 } from "@/components/ui/pagination"
 
-type InspeccionWithVehiculo = Inspeccion & {
-  vehiculo: Vehiculo
+// Actualizar la definición del tipo para incluir cliente y empleado
+type InspeccionWithRelations = Inspeccion & {
+  vehiculo: Vehiculo | null
+  cliente: Cliente | null
+  empleado: Empleado | null
 }
 
 interface InspeccionesTableProps {
-  inspecciones: InspeccionWithVehiculo[]
+  inspecciones: InspeccionWithRelations[]
   onInspeccionUpdated: () => void
 }
 
@@ -29,7 +32,7 @@ export function InspeccionesTable({ inspecciones, onInspeccionUpdated }: Inspecc
   const [currentPage, setCurrentPage] = useState(1)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
-  const [selectedInspeccion, setSelectedInspeccion] = useState<InspeccionWithVehiculo | null>(null)
+  const [selectedInspeccion, setSelectedInspeccion] = useState<InspeccionWithRelations | null>(null)
 
   const itemsPerPage = 10
   const indexOfLastItem = currentPage * itemsPerPage
@@ -41,12 +44,12 @@ export function InspeccionesTable({ inspecciones, onInspeccionUpdated }: Inspecc
     setCurrentPage(page)
   }
 
-  const handleEdit = (inspeccion: InspeccionWithVehiculo) => {
+  const handleEdit = (inspeccion: InspeccionWithRelations) => {
     setSelectedInspeccion(inspeccion)
     setIsEditModalOpen(true)
   }
 
-  const handleDelete = (inspeccion: InspeccionWithVehiculo) => {
+  const handleDelete = (inspeccion: InspeccionWithRelations) => {
     setSelectedInspeccion(inspeccion)
     setIsDeleteModalOpen(true)
   }
@@ -81,11 +84,13 @@ export function InspeccionesTable({ inspecciones, onInspeccionUpdated }: Inspecc
         <TableBody>
           {currentInspecciones.map((inspeccion) => (
             <TableRow key={inspeccion.id}>
-              <TableCell className="font-medium">{inspeccion.vehiculo.descripcion}</TableCell>
-              <TableCell>{inspeccion.clienteId}</TableCell>
-              <TableCell>{new Date(inspeccion.fecha).toLocaleDateString()}</TableCell>
-              <TableCell>{inspeccion.estadoGomas}</TableCell>
-              <TableCell>{inspeccion.cantidadCombustible}</TableCell>
+              <TableCell className="font-medium">{inspeccion.vehiculo?.descripcion || "No disponible"}</TableCell>
+              <TableCell>{inspeccion.cliente?.nombre || "No disponible"}</TableCell>
+              <TableCell>
+                {inspeccion.fecha ? new Date(inspeccion.fecha).toLocaleDateString() : "No disponible"}
+              </TableCell>
+              <TableCell>{inspeccion.estadoGomas || "No disponible"}</TableCell>
+              <TableCell>{inspeccion.cantidadCombustible || "No disponible"}</TableCell>
               <TableCell>{inspeccion.tieneRalladuras ? "Sí" : "No"}</TableCell>
               <TableCell>{inspeccion.tieneRoturasCristal ? "Sí" : "No"}</TableCell>
               <TableCell>{inspeccion.estado ? "Activo" : "Inactivo"}</TableCell>
