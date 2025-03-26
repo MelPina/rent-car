@@ -1,5 +1,5 @@
 
-import { Vehiculo } from "@prisma/client";
+import { Car } from "@prisma/client";
 
 import Image from 'next/image'
 import { Fuel, Gem, Users, Wrench } from "lucide-react";
@@ -12,20 +12,17 @@ export function CarList(props: CarsListProps) {
 
     return (
         <div className="grid grid-cols-2 gap-6 lg:grid-cols-4">
-            {cars.map((car: Vehiculo) => {
+            {cars.map((car: Car) => {
                 const {
-                    descripcion      ,
-                    noChasis         ,
-                    noMotor          ,
-                    noPlaca          ,
-                    tpVehiculoId     ,
-                    marcaId          ,
-                    modeloId         ,
-                    tpCombustibleId  ,
-                    estado            ,
+                    priceDay,
                     photo,
-                  
-                    
+                    CV,
+                    engine,
+                    id,
+                    people,
+                    name,
+                    transmission,
+                    type,
                 } = car;
                 // return <div key={car.id}>{car.name}</div>;
                 return (
@@ -38,10 +35,13 @@ export function CarList(props: CarsListProps) {
                             className="w-full h-48 object-cover rounded-t-lg"
                         />
                         <div className="p-3">
-                            
+                            <div className="flex flex-col mb-3 gap-x-4">
+                                <p className="text-xl min-h-16 lg:min-h-fit">{name}</p>
+                                <p>{priceDay}$ /día</p>
+                            </div>
                             <p className="flex items-center">
                                 <Gem className="h-4 w-4 mr-2" strokeWidth={1} />
-                                {tpVehiculoId}
+                                {type}
                             </p>
                             <p className="flex items-center">
                                 <Wrench className="h-4 w-4 mr-2" strokeWidth={1} />
