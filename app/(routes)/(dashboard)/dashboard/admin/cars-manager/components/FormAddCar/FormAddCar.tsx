@@ -52,7 +52,7 @@ export function FormAddCar(props: FormAddCarProps) {
         title: "Vehículo Registrado ✅",
       });
       router.refresh();
-    } catch (error) {
+    } catch {
       toast({
         title: "Something went wrong",
         variant: "destructive",
