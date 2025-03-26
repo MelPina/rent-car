@@ -35,7 +35,7 @@ const formSchema = z.object({
     .refine((cedula) => validationCedula(cedula), {
       message: "La cédula ingresada no es válida",
     }),
-  noTarjetaCr: z.string().min(1, "El número de tarjeta es requerido"),
+  noTarjetaCr: z.string().min(13, "El número de tarjeta es inválido").max(16, "El número de tarjeta es inválido"),
   limiteCredito: z.coerce.number().min(0, "El límite de crédito no puede ser negativo"),
   tipoPersona: z.string().min(1, "El tipo de persona es requerido"),
   estado: z.boolean().default(true),
