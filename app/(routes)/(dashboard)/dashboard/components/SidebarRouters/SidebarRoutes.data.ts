@@ -1,10 +1,10 @@
 import { BookUserIcon, Calendar, Car, CarTaxiFrontIcon, ComponentIcon, FileScanIcon, FramerIcon, FuelIcon,  ShieldQuestionIcon, UsersIcon } from "lucide-react";  
 export const dataGeneralSidebar = [  
-{  
-  icon: Car,  
-  label: "Vehículos",  
-  href: "/dashboard",  
-},  
+// {  
+//   icon: Car,  
+//   label: "Vehículos",  
+//   href: "/dashboard",  
+// },  
 // {  
 //   icon: Calendar,  
 //   label: "Vehículos Reservados",  
@@ -21,9 +21,14 @@ export const dataGeneralSidebar = [
 export const dataAdminSidebar = [  
   {  
     icon: FileScanIcon,  
-    label: "Gestión de Vehículos",  
-    href: "/dashboard/admin/cars-manager",  
+    label: "Gestión de Vehículos ",  
+    href: "/dashboard/admin/vehiculos",  
   },  
+  // {  
+  //   icon: FileScanIcon,  
+  //   label: "Gestión de Vehículos",  
+  //   href: "/dashboard/admin/cars-manager",  
+  // },  
   {  
     icon: Calendar,  
     label: "Renta y devoluciones",  

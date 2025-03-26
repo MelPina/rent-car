@@ -10,12 +10,12 @@ export function SidebarRoutes() {
     return (
         <div className="flex flex-col justify-between h-full">
             <div>
-                <div className="p-2 md:p-6">
+                {/* <div className="p-2 md:p-6">
                     <p className="mb-2 text-slate-500">GENERAL</p>
                     {dataGeneralSidebar.map((item) => (
                         <SidebarItem key={item.label} item={item} />
                     ))}
-                </div>
+                </div> */}
             <Separator />
             {isAdministrator(userId) && (
             <div className="p-2 md:p-6">
