@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import NextTopLoader from 'nextjs-toploader';
+import { Toaster } from "@/components/ui/toaster"
+
 
 import {
   ClerkProvider,
@@ -21,6 +23,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Home - Rent Car",
   description: "Rent Car is a car rental service.",
+  icons: {
+    icon: "/favicon.ico", 
+  },
 };
 
 export default function RootLayout({
@@ -36,6 +41,7 @@ export default function RootLayout({
       >
          <NextTopLoader color="#000"/>
         {children}
+        <Toaster />
 
       </body>
     </html>
