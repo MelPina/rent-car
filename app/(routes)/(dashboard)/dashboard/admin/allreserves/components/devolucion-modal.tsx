@@ -35,7 +35,7 @@ interface DevolucionModalProps {
   onSuccess: () => void
 }
 
-// Definir el esquema de validación
+
 const formSchema = z.object({
   fechaDevolucion: z.date({
     required_error: "La fecha de devolución es requerida",
@@ -46,7 +46,7 @@ const formSchema = z.object({
 export function DevolucionModal({ isOpen, onClose, rentaDevolucion, onSuccess }: DevolucionModalProps) {
   const [isLoading, setIsLoading] = useState(false)
 
-  // Inicializar el formulario
+  
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -59,7 +59,7 @@ export function DevolucionModal({ isOpen, onClose, rentaDevolucion, onSuccess }:
     try {
       setIsLoading(true)
 
-      // Llamada a la API para registrar la devolución
+      
       const response = await fetch(`/api/rentas-devoluciones/${rentaDevolucion.id}/devolucion`, {
         method: "PATCH",
         headers: {
@@ -90,7 +90,7 @@ export function DevolucionModal({ isOpen, onClose, rentaDevolucion, onSuccess }:
     }
   }
 
-  // Calcular días transcurridos desde la renta hasta hoy
+  
   const calcularDiasTranscurridos = () => {
     const fechaRenta = new Date(rentaDevolucion.fechaRenta)
     const hoy = new Date()

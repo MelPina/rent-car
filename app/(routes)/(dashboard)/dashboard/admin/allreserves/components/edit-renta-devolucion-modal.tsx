@@ -36,7 +36,7 @@ interface EditRentaDevolucionModalProps {
   onSuccess: () => void
 }
 
-// Definir el esquema de validación
+
 const formSchema = z.object({
   fechaRenta: z.date({
     required_error: "La fecha de renta es requerida",
@@ -54,18 +54,18 @@ export function EditRentaDevolucionModal({
 }: EditRentaDevolucionModalProps) {
   const [isLoading, setIsLoading] = useState(false)
 
-  // Verificar si es una fecha por defecto (01/01/0001 o similar)
+ 
   const isDefaultDate = (date: Date) => {
     const dateObj = new Date(date)
     return dateObj.getFullYear() < 1970
   }
 
-  // Verificar si una renta ha sido devuelta
+  
   const isDevuelta = () => {
     return rentaDevolucion.fechaDevolucion && !isDefaultDate(rentaDevolucion.fechaDevolucion)
   }
 
-  // Inicializar el formulario con los datos de la renta
+  
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -80,7 +80,7 @@ export function EditRentaDevolucionModal({
     try {
       setIsLoading(true)
 
-      // Llamada a la API para actualizar la renta
+    
       const response = await fetch(`/api/rentas-devoluciones/${rentaDevolucion.id}`, {
         method: "PATCH",
         headers: {

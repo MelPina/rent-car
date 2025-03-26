@@ -30,7 +30,7 @@ interface AddRentaDevolucionModalProps {
   onSuccess: () => void
 }
 
-// Definir el esquema de validación
+
 const formSchema = z.object({
   vehiculoId: z.string().min(1, "El vehículo es requerido"),
   clienteId: z.string().min(1, "El cliente es requerido"),
@@ -51,7 +51,7 @@ export function AddRentaDevolucionModal({ isOpen, onClose, onSuccess }: AddRenta
   const [empleados, setEmpleados] = useState<Empleado[]>([])
   const [dataLoaded, setDataLoaded] = useState(false)
 
-  // Inicializar el formulario
+  
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -65,7 +65,7 @@ export function AddRentaDevolucionModal({ isOpen, onClose, onSuccess }: AddRenta
     },
   })
 
-  // Cargar los datos necesarios
+  
   const loadData = async () => {
     try {
       setDataLoaded(false)
@@ -80,21 +80,21 @@ export function AddRentaDevolucionModal({ isOpen, onClose, onSuccess }: AddRenta
       console.log("Vehículos cargados (total):", vehiculosData.length)
       setVehiculos(vehiculosData)
 
-      // Cargar vehículos disponibles
+     
       try {
         const disponiblesResponse = await fetch("/api/rentas-devoluciones/disponibles")
         if (disponiblesResponse.ok) {
           const disponiblesData = await disponiblesResponse.json()
           console.log("Vehículos disponibles:", disponiblesData.length)
 
-          // Verificar qué vehículos están disponibles
+          
           const disponiblesIds = disponiblesData.map((v: Vehiculo) => v.id)
           console.log("IDs de vehículos disponibles:", disponiblesIds)
 
           setVehiculosDisponibles(disponiblesData)
         } else {
           console.error("Error al cargar vehículos disponibles:", await disponiblesResponse.text())
-          // No establecer vehículos disponibles si hay error
+          
           setVehiculosDisponibles([])
         }
       } catch (error) {
@@ -102,7 +102,7 @@ export function AddRentaDevolucionModal({ isOpen, onClose, onSuccess }: AddRenta
         setVehiculosDisponibles([])
       }
 
-      // Cargar clientes
+      
       const clientesResponse = await fetch("/api/clientes")
       if (!clientesResponse.ok) {
         throw new Error("Error al cargar los clientes")
@@ -111,7 +111,7 @@ export function AddRentaDevolucionModal({ isOpen, onClose, onSuccess }: AddRenta
       console.log("Clientes cargados:", clientesData.length)
       setClientes(clientesData)
 
-      // Cargar empleados
+      
       const empleadosResponse = await fetch("/api/empleados")
       if (!empleadosResponse.ok) {
         throw new Error("Error al cargar los empleados")
@@ -142,7 +142,7 @@ export function AddRentaDevolucionModal({ isOpen, onClose, onSuccess }: AddRenta
     try {
       setIsLoading(true)
 
-      // Verificar si el vehículo está disponible
+      
       const isVehiculoDisponible = vehiculosDisponibles.some((v) => v.id === values.vehiculoId)
 
       if (!isVehiculoDisponible) {
@@ -154,7 +154,7 @@ export function AddRentaDevolucionModal({ isOpen, onClose, onSuccess }: AddRenta
         return
       }
 
-      // Llamada a la API para crear la renta
+      
       const response = await fetch("/api/rentas-devoluciones", {
         method: "POST",
         headers: {
@@ -162,7 +162,7 @@ export function AddRentaDevolucionModal({ isOpen, onClose, onSuccess }: AddRenta
         },
         body: JSON.stringify({
           ...values,
-          estado: true, // Renta activa
+          estado: true, 
         }),
       })
 

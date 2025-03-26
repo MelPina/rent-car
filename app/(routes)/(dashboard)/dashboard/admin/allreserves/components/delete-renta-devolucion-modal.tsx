@@ -35,13 +35,13 @@ export function DeleteRentaDevolucionModal({
 }: DeleteRentaDevolucionModalProps) {
   const [isLoading, setIsLoading] = useState(false)
 
-  // Verificar si es una fecha por defecto (01/01/0001 o similar)
+ 
   const isDefaultDate = (date: Date) => {
     const dateObj = new Date(date)
     return dateObj.getFullYear() < 1970
   }
 
-  // Verificar si una renta ha sido devuelta
+ 
   const isDevuelta = () => {
     return rentaDevolucion.fechaDevolucion && !isDefaultDate(rentaDevolucion.fechaDevolucion)
   }
@@ -50,7 +50,7 @@ export function DeleteRentaDevolucionModal({
     try {
       setIsLoading(true)
 
-      // Llamada a la API para eliminar la renta
+    
       const response = await fetch(`/api/rentas-devoluciones/${rentaDevolucion.id}`, {
         method: "DELETE",
       })

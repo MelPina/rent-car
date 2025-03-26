@@ -21,6 +21,9 @@ model Vehiculo {
   tpCombustibleId   String
   estado            Boolean
   photo             String
+  isPublish         Boolean?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
   tpVehiculo        TipoVehiculo      @relation(fields: [tpVehiculoId], references: [id])
   marca             Marca             @relation(fields: [marcaId], references: [id])
   modelo            Modelo            @relation(fields: [modeloId], references: [id])
@@ -169,10 +172,4 @@ model Order {
 
   @@index([carId])
   @@index([userId])
-}
-
-model playing_with_neon {
-  id    Int    @id @default(autoincrement())
-  name  String
-  value Float? @db.Real
 }

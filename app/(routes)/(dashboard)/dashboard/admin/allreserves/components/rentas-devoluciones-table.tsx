@@ -79,9 +79,9 @@ export function RentasDevolucionesTable({
     onRentaDevolucionUpdated()
   }
 
-  // Calcular días restantes o días de retraso
+
   const calcularDiasRestantes = (rentaDevolucion: RentaDevolucionWithRelations) => {
-    // Si ya tiene fecha de devolución, no hay días restantes
+    
     if (rentaDevolucion.fechaDevolucion && !isDefaultDate(rentaDevolucion.fechaDevolucion)) {
       return null
     }
@@ -97,13 +97,13 @@ export function RentasDevolucionesTable({
     return diasRestantes
   }
 
-  // Verificar si es una fecha por defecto (01/01/0001 o similar)
+  
   const isDefaultDate = (date: Date) => {
     const dateObj = new Date(date)
     return dateObj.getFullYear() < 1970
   }
 
-  // Verificar si una renta ha sido devuelta
+  
   const isDevuelta = (rentaDevolucion: RentaDevolucionWithRelations) => {
     if (!rentaDevolucion.fechaDevolucion) return false
 
