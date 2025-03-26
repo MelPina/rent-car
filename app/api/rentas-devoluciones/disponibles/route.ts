@@ -10,30 +10,20 @@ export async function GET(req: Request) {
       return new NextResponse("Unauthorized", { status: 401 })
     }
 
-    // Obtener todos los vehículos
+    // Obtener todos los vehículos activos
     const vehiculos = await db.vehiculo.findMany({
       where: {
-        estado: true, // Solo vehículos activos
+        estado: true,
       },
     })
 
-    // Obtener vehículos en renta activa (sin fecha de devolución)
-    const vehiculosEnRenta = await db.rentaDevolucion.findMany({
-      where: {
-        estado: true, // Rentas activas
-        fechaDevolucion: null, // Sin fecha de devolución
-      },
-      select: {
-        vehiculoId: true,
-      },
-    })
-
-    // También verificar vehículos con fecha de devolución por defecto (0001-01-01)
-    const vehiculosConDevolucionPorDefecto = await db.rentaDevolucion.findMany({
+    // Obtener IDs de vehículos en renta activa
+    const rentasActivas = await db.rentaDevolucion.findMany({
       where: {
         estado: true,
         fechaDevolucion: {
-          lt: new Date("1970-01-01"), // Fecha por defecto
+          // Considerar como no devuelto si la fecha es anterior a 1970 (fecha por defecto)
+          lt: new Date("1970-01-02"),
         },
       },
       select: {
@@ -41,18 +31,17 @@ export async function GET(req: Request) {
       },
     })
 
-    // Combinar los IDs de vehículos no disponibles
-    const vehiculosNoDisponiblesIds = new Set([
-      ...vehiculosEnRenta.map((r) => r.vehiculoId),
-      ...vehiculosConDevolucionPorDefecto.map((r) => r.vehiculoId),
-    ])
+    // Crear un conjunto de IDs de vehículos en renta
+    const vehiculosEnRentaIds = new Set(rentasActivas.map((r) => r.vehiculoId))
 
     // Filtrar vehículos disponibles (no están en renta)
-    const vehiculosDisponibles = vehiculos.filter((v) => !vehiculosNoDisponiblesIds.has(v.id))
+    const vehiculosDisponibles = vehiculos.filter((v) => !vehiculosEnRentaIds.has(v.id))
+
+    console.log(`Total vehículos: ${vehiculos.length}, Disponibles: ${vehiculosDisponibles.length}`)
 
     return NextResponse.json(vehiculosDisponibles)
   } catch (error) {
-    console.log("[VEHICULOS_DISPONIBLES]", error)
+    console.error("[VEHICULOS_DISPONIBLES]", error)
     return new NextResponse("Internal Error", { status: 500 })
   }
 }

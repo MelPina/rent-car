@@ -41,22 +41,27 @@ export async function POST(req: Request) {
     const vehiculoEnRenta = await db.rentaDevolucion.findFirst({
       where: {
         vehiculoId: values.vehiculoId,
-        estado: true, // Renta activa
-        OR: [
-          { fechaDevolucion: null }, // Sin fecha de devolución
-          { fechaDevolucion: { lt: new Date("1970-01-01") } }, // O con fecha por defecto
-        ],
+        estado: true,
       },
     })
 
+    // Si hay una renta existente, verificar si ya fue devuelta
     if (vehiculoEnRenta) {
-      return new NextResponse("El vehículo ya está en renta", { status: 400 })
+      const fechaDevolucion = vehiculoEnRenta.fechaDevolucion
+      const esDevuelto = fechaDevolucion && new Date(fechaDevolucion).getFullYear() > 1970
+
+      if (!esDevuelto) {
+        return new NextResponse("El vehículo ya está en renta y pendiente de devolución", { status: 400 })
+      }
     }
 
+    // Crear la renta con una fecha de devolución por defecto (null o una fecha mínima)
+    // Usamos new Date(0) como valor por defecto para fechaDevolucion
     const rentaDevolucion = await db.rentaDevolucion.create({
       data: {
         ...values,
         userId,
+        fechaDevolucion: new Date(0), // Fecha mínima como valor por defecto
       },
     })
 

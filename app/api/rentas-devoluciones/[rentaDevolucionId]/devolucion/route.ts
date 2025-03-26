@@ -23,7 +23,7 @@ export async function PATCH(req: Request, { params }: { params: { rentaDevolucio
       return new NextResponse("Renta no encontrada", { status: 404 })
     }
 
-    // Verificar si ya tiene fecha de devolución
+    // Verificar si ya tiene fecha de devolución válida
     if (rentaDevolucion.fechaDevolucion) {
       const fechaDevolucion = new Date(rentaDevolucion.fechaDevolucion)
       if (fechaDevolucion.getFullYear() > 1970) {
